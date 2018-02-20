@@ -10,7 +10,8 @@
     "require": {
         "slim/slim": "^3.9",
         "phpunit/phpunit": "^5.7",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "monolog/monolog": "^1.23"        
     },
     "autoload" : {
         "psr-4" : {
