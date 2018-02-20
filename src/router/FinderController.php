@@ -1,8 +1,7 @@
 <?php
 namespace Router;
 
-use \Interop\Container\ContainerInterface as ContainerInterface;
-use \Router\FinderControllerInterface As FinderControllerInterface;
+use \Interop\Container\ContainerInterface;
 
 class FinderController implements FinderControllerInterface
 {
@@ -16,7 +15,17 @@ class FinderController implements FinderControllerInterface
 
     public function find($request, $response, $args)
     {
-        return "aquiii" . $args["namespace"];
+        $workSpace = WorkSpace::createFromName( $args["name"] );
+        $result = WorkSpaceRepository::createFrom( $workSpace, $this->container )->findForName();
+
+        if ($result){
+            $response = $response->withJson( $result );
+        } else {
+            $response = $response
+                ->withJson(["message"=>"Servidor não encontrado."])
+                ->withStatus(503);
+        }
+        return $response;
     }
 
 }

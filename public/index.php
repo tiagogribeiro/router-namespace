@@ -2,17 +2,19 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use \Router\FinderController As FinderController;
+use Router\FinderController;
+use Router\WorkSpaceController;
+use Router\ServerController;
 
 require '../bootstrap.php';
 
 // Finder
-$app->get('/finder/{namespace}', FinderController::class . ':find');
+$app->get('/finder/{name}', FinderController::class . ':find');
 
 // Namespace
-$app->get('/namespace', NamespacerController::class . ':list');
-$app->put('/namespace', NamespacerController::class . ':add');
-$app->delete('/namespace/{id}', NamespaceController::class . ':delete');
+$app->get('/workspace', WorkSpaceController::class . ':list');
+$app->put('/workspace', WorkSpaceController::class . ':add');
+$app->delete('/workspace/{id}', WorkSpaceController::class . ':delete');
 
 // Server
 $app->get('/server', ServerController::class . ':list');

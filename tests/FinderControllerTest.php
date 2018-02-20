@@ -23,4 +23,11 @@ class FinderControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+    public function testFinderWorkSpaceInValueAleatory()
+    {
+        $result = json_encode(['server_name'=>'server1']);
+        $response = $this->http->request('GET','/public/finder/JJ1');
+        $this->assertEquals($result, $response->getBody());
+    }
+
 }

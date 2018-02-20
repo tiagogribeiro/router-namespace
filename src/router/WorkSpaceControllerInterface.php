@@ -1,7 +1,7 @@
 <?php
 namespace Router;
 
-interface NamespaceControllerInterface
+interface WorkSpaceControllerInterface
 {
     public function list($request, $response, $args);
     public function add($request, $response, $args);
