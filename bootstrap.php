@@ -30,3 +30,21 @@ $container['logger'] = function($container)
     $logger->pushHandler($file_handler);
     return $logger;
 };
+
+$container['errorHandler'] = function ($container) {
+    return function ($request, $response, $exception) use ($container) {
+        $statusCode = $exception->getCode() ? $exception->getCode() : 500;
+        return $container['response']->withStatus($statusCode)
+            ->withHeader('Content-Type', 'Application/json')
+            ->withJson(["message" => $exception->getMessage()], $statusCode);
+    };
+};
+
+// JSON Web Token
+$app->add(new \Slim\Middleware\JwtAuthentication([
+    "path" => "/",
+    "passthrough" => ["/token"],
+    "logger" => $logger,
+    "relaxed" => ["172.21.0.2"],
+    "secret" =>  getenv("JWT_SECRET")
+]));

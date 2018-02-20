@@ -8,7 +8,7 @@ class WorkSpace implements WorkSpaceInterface
 
     public static function createFromEmpty()
     {
-        return new WorkSpace("");
+        return new WorkSpace("", "");
     }
 
     public static function createFromName( $name )

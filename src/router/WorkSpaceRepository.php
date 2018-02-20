@@ -23,10 +23,10 @@ class WorkSpaceRepository implements RepositoryInterface
 
     public function save()
     {
-        $sql = 'INSERT INTO workspace (id,name,server_name) VALUES (:id,:name,:server_name)';
+        $sql = 'INSERT INTO workspace (name,server_name) VALUES (:name,:server_name)';
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':name', $this->workspace->getName() );
-        $statement->bindParam(':server_name', $this->workspace->getServer() );
+        $statement->bindParam(':server', $this->workspace->getServer() );
         return $statement->execute();
     }
 
@@ -40,17 +40,16 @@ class WorkSpaceRepository implements RepositoryInterface
 
     public function listAll()
     {
-        $sql = 'SELECT name,server_name FROM server';
-        return $this->db->query( $sql );
+        $sql = 'SELECT name,server_name FROM workspace';
+        $statement = $this->db->prepare( $sql );
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function findForName()
     {
         $sql = 'SELECT server_name FROM workspace WHERE name =:name';
         $statement = $this->db->prepare( $sql );
-
-        echo "-->".$this->workspace->getName();
-
         if ($statement){
             $statement->bindParam(':name', $this->workspace->getName(), \PDO::PARAM_STR );
             $statement->execute();
