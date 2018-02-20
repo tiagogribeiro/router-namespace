@@ -10,9 +10,14 @@ class TokenGenerator
 
         $now = new \DateTime();
         $future = new \DateTime('+20 minutes');
-        $server = $request->getServerParams();
 
-        $payload = [                
+        /*
+         iss - Domínio utilizado para validar a procedência do token
+         iat - Timestamp de criação do token.
+         exp - Timestamp de expiração do token.
+         */
+        $payload = [
+            'iss'  => '',
             'iat' => $now->getTimeStamp(),
             'exp' => $future->getTimeStamp()
          ];
