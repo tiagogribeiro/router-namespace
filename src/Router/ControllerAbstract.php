@@ -1,13 +1,11 @@
 <?php
 namespace Router;
 
-use \Interop\Container\ContainerInterface;
-
 abstract class ControllerAbstract
 {
     protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct( \Interop\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }

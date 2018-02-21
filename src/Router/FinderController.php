@@ -7,7 +7,7 @@ use Router\Domain\WorkSpace\WorkSpaceRepository;
 class FinderController extends ControllerAbstract implements FinderControllerInterface
 {
 
-    public function find($request, $response, $args)
+    public function find( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $workSpace = WorkSpace::createFromName( $args["name"] );
         $result = WorkSpaceRepository::createFrom( $workSpace, $this->container )->findForName();

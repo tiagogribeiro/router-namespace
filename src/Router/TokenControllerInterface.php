@@ -3,5 +3,5 @@ namespace Router;
 
 interface TokenControllerInterface
 {
-    public function generator($request, $response, $args);
+    public function generator( \Slim\Http\Request $request, \Slim\Http\Response $response, $args);
 }

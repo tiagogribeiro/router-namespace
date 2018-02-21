@@ -8,7 +8,7 @@ use Router\Domain\WorkSpace\WorkSpaceRepository;
 class WorkSpaceController extends ControllerAbstract implements WorkSpaceControllerInterface
 {
 
-    public function listAll($request, $response, $args)
+    public function listAll( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $workspace = WorkSpace::createFromEmpty();
         $repository = WorkSpaceRepository::createFrom( $workspace, $this->container );
@@ -19,7 +19,7 @@ class WorkSpaceController extends ControllerAbstract implements WorkSpaceControl
         return $response->withJson( $results );
     }
 
-    public function add($request, $response, $args)
+    public function add( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $data = $request->getParsedBody();
         $workspace = WorkSpace::createFrom( $data["name"], $data["server"] );
@@ -35,7 +35,7 @@ class WorkSpaceController extends ControllerAbstract implements WorkSpaceControl
         }
     }
 
-    public function delete($request, $response, $args)
+    public function delete( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $workspace = WorkSpace::createFromName( $args["name"] );
         $repository = WorkSpaceRepository::createFrom( $workspace, $this->container );

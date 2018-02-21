@@ -3,8 +3,8 @@ namespace Router;
 
 interface WorkSpaceControllerInterface
 {
-    public function listAll($request, $response, $args);
-    public function add($request, $response, $args);
-    public function delete($request, $response, $args);
+    public function listAll( \Slim\Http\Request $request, \Slim\Http\Response $response, $args);
+    public function add( \Slim\Http\Request $request, \Slim\Http\Response $response, $args);
+    public function delete( \Slim\Http\Request $request, \Slim\Http\Response $response, $args);
 
 }

@@ -5,7 +5,7 @@ use \Firebase\JWT\JWT;
 
 class TokenGenerator
 {
-    public static function getToken( $request )
+    public static function getToken( \Slim\Http\Request $request )
     {
         $tokenId    = \base64_encode(\mcrypt_create_iv(32));
         $now = new \DateTime();

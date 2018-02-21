@@ -8,55 +8,66 @@ class WorkSpaceRepository extends Repository implements WorkSpaceRepositoryInter
 {
     private $workspace;
     private $db;
-    private $looger;
 
     public static function createFrom( WorkSpaceInterface $workspace, ContainerInterface $container )
     {
-        return new WorkSpaceRepository( $workspace, $container );
+        return new WorkSpaceRepository( $workspace, $container->db );
     }
 
-    private function __construct( WorkSpaceInterface $workspace, ContainerInterface $container )
+    private function __construct( WorkSpaceInterface $workspace, \PDO $db )
     {
         $this->workspace = $workspace;
-        $this->db = $container->db;
-        $this->logger = $container->logger;
+        $this->db = $db;
     }
 
     public function save()
     {
-        $sql = 'INSERT INTO workspace (name,server_name) VALUES (:name,:server)';
+        $sql = 'INSERT INTO workspace (name,server) VALUES (:name,:server)';
         $statement = $this->db->prepare($sql);
-        $statement->bindParam(':name', $this->workspace->getName() );
-        $statement->bindParam(':server', $this->workspace->getServer() );
-        return $statement->execute();
+        if ($statement){
+            $statement->bindParam(':name', $this->workspace->getName() );
+            $statement->bindParam(':server', $this->workspace->getServer() );
+            return $statement->execute();
+        } else {
+            throw new \Exception( self::PREPARE_ERROR );
+        }
     }
 
     public function delete()
     {
         $sql = 'DELETE FROM workspace WHERE name =:name';
         $statement = $this->db->prepare($sql);
-        $statement->bindParam(':name', $this->workspace->getName() , \PDO::PARAM_STR );
-        return $statement->execute();
+        if ($statement){
+            $statement->bindParam(':name', $this->workspace->getName() , \PDO::PARAM_STR );
+            return $statement->execute();
+        } else {
+            throw new \Exception( self::PREPARE_ERROR );
+        }
     }
 
     public function listAll()
     {
-        $sql = 'SELECT name,server_name FROM workspace';
+        $sql = 'SELECT name,server FROM workspace';
         $statement = $this->db->prepare( $sql );
-        $statement->execute();
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        if ($statement){
+            $statement->execute();
+            return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+            throw new \Exception( self::PREPARE_ERROR );
+        }
     }
 
     public function findForName()
     {
-        $sql = 'SELECT server_name FROM workspace WHERE name =:name';
+        $sql = 'SELECT server FROM workspace WHERE name =:name';
         $statement = $this->db->prepare( $sql );
         if ($statement){
             $statement->bindParam(':name', $this->workspace->getName(), \PDO::PARAM_STR );
             $statement->execute();
-            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $statement->fetch(\PDO::FETCH_ASSOC);
+        } else {
+            throw new \Exception( self::PREPARE_ERROR );
         }
-        return $result;
     }
 
     public function install()
@@ -64,11 +75,11 @@ class WorkSpaceRepository extends Repository implements WorkSpaceRepositoryInter
         $sql = 'CREATE TABLE IF NOT EXISTS workspace ('
               .' id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,'
               .' name TEXT,'
-              .' server_name TEXT );'
+              .' server TEXT );'
               .'CREATE INDEX IF NOT EXISTS idxName ON workspace(name);';
 
         if (!$this->db->exec( $sql )) {
-            throw new \Exception( $this->db->errorInfo() );
+            return $this->db->errorInfo();
         }
         return true;
     }
