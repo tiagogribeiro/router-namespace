@@ -4,7 +4,7 @@ namespace Router\Model\WorkSpace;
 use \Interop\Container\ContainerInterface;
 use Router\Model\Repository;
 
-class WorkSpaceRepository extends Repository
+class WorkSpaceRepository extends Repository implements WorkSpaceRepositoryInterface
 {
     private $workspace;
     private $db;
