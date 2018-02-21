@@ -1,6 +1,6 @@
 <?php
 
-$config = [
+$settings = [
         'log.enable' => true,
         'settings' => [
             'displayErrorDetails' => true,
