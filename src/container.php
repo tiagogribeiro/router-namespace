@@ -1,16 +1,4 @@
 <?php
-require '../vendor/autoload.php';
-
-$config = [
-        'log.enable' => true,
-        'settings' => [
-            'displayErrorDetails' => true,
-            'db_path' => 'storage/',
-            'log_path' => '../logs/log_application.log'
-        ]
-];
-
-$app = new \Slim\App($config);
 
 $container  = $app->getContainer();
 $container['db'] = function($container)
@@ -35,7 +23,7 @@ $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         $statusCode = $exception->getCode() ? $exception->getCode() : 500;
         $container->logger->critical( $exception );
-        return $container['response']->withStatus($statusCode)
+        return $container->response->withStatus($statusCode)
             ->withHeader('Content-Type', 'Application/json')
             ->withJson(["message" => $exception->getMessage()], $statusCode);
     };
@@ -44,19 +32,6 @@ $container['errorHandler'] = function ($container) {
 $container['phpErrorHandler'] = function ($container) {
     return function ($request, $response, $error) use ($container) {
         $container->logger->emergency( $exception );
-        return $container['response']
-            ->withStatus(500)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('Something went wrong!');
+        return $container->response->withStatus(500);
     };
 };
-
-
-// JSON Web Token
-$app->add(new \Slim\Middleware\JwtAuthentication([
-    "path" => "/",
-    "passthrough" => ["/token"],
-    "logger" => $logger,
-    "relaxed" => ["172.21.0.2"],
-    "secret" =>  getenv("JWT_SECRET")
-]));

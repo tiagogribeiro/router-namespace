@@ -6,7 +6,7 @@ use Router\FinderController;
 use Router\WorkSpaceController;
 use Router\TokenController;
 
-require '../bootstrap.php';
+require '../src/bootstrap.php';
 
 // Token
 $app->get('/token', TokenController::class . ':generator');
