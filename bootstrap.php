@@ -34,11 +34,23 @@ $container['logger'] = function($container)
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         $statusCode = $exception->getCode() ? $exception->getCode() : 500;
+        $container->logger->critical( $exception );
         return $container['response']->withStatus($statusCode)
             ->withHeader('Content-Type', 'Application/json')
             ->withJson(["message" => $exception->getMessage()], $statusCode);
     };
 };
+
+$container['phpErrorHandler'] = function ($container) {
+    return function ($request, $response, $error) use ($container) {
+        $container->logger->emergency( $exception );
+        return $container['response']
+            ->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    };
+};
+
 
 // JSON Web Token
 $app->add(new \Slim\Middleware\JwtAuthentication([
