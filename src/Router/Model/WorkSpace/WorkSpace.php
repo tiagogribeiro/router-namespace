@@ -8,11 +8,6 @@ class WorkSpace extends Entity implements WorkSpaceInterface
     private $name;
     private $server;
 
-    public static function createFromEmpty()
-    {
-        return new WorkSpace("", "");
-    }
-
     public static function createFromName( $name )
     {
         return new WorkSpace( $name, "" );
@@ -21,6 +16,11 @@ class WorkSpace extends Entity implements WorkSpaceInterface
     public static function createFrom( $name, $server )
     {
         return new WorkSpace( $name, $server );
+    }
+
+    public static function createFromEmpty()
+    {
+        return new WorkSpace("", "");
     }
 
     private function __construct( $name, $server )
@@ -41,6 +41,6 @@ class WorkSpace extends Entity implements WorkSpaceInterface
 
     public function __toString()
     {
-        return "DiscussionDescriptor [id=".$this->id."]";
+        return "WorkSpace [name=".$this->name."]";
     }
 }

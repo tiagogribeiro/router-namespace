@@ -1,19 +1,11 @@
 <?php
 namespace Router;
 
-use \Interop\Container\ContainerInterface;
 use Router\Model\WorkSpace\WorkSpace;
 use Router\Model\WorkSpace\WorkSpaceRepository;
 
-class FinderController implements FinderControllerInterface
+class FinderController extends ControllerAbstract implements FinderControllerInterface
 {
-
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
 
     public function find($request, $response, $args)
     {

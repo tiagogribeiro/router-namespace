@@ -5,15 +5,9 @@ use \Interop\Container\ContainerInterface;
 use Router\Model\WorkSpace\WorkSpace;
 use Router\Model\WorkSpace\WorkSpaceRepository;
 
-class WorkSpaceController implements WorkSpaceControllerInterface
+class WorkSpaceController extends ControllerAbstract implements WorkSpaceControllerInterface
 {
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
+    
     public function listAll($request, $response, $args)
     {
         $workspace = WorkSpace::createFromEmpty();
