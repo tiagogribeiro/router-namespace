@@ -1,5 +1,5 @@
 <?php
-namespace Router;
+namespace Router\Infrastructure;
 
 use \Firebase\JWT\JWT;
 

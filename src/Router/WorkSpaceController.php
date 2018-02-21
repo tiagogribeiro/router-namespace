@@ -2,12 +2,12 @@
 namespace Router;
 
 use \Interop\Container\ContainerInterface;
-use Router\Model\WorkSpace\WorkSpace;
-use Router\Model\WorkSpace\WorkSpaceRepository;
+use Router\Domain\WorkSpace\WorkSpace;
+use Router\Domain\WorkSpace\WorkSpaceRepository;
 
 class WorkSpaceController extends ControllerAbstract implements WorkSpaceControllerInterface
 {
-    
+
     public function listAll($request, $response, $args)
     {
         $workspace = WorkSpace::createFromEmpty();

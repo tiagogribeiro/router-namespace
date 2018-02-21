@@ -1,5 +1,5 @@
 <?php
-namespace Router\Model\WorkSpace;
+namespace Router\Domain\WorkSpace;
 
 interface WorkSpaceInterface
 {

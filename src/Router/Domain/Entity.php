@@ -1,5 +1,5 @@
 <?php
-namespace Router\Model;
+namespace Router\Domain;
 
 abstract class Entity
 {

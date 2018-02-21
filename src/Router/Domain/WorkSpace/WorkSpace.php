@@ -1,7 +1,7 @@
 <?php
-namespace Router\Model\WorkSpace;
+namespace Router\Domain\WorkSpace;
 
-use Router\Model\Entity;
+use Router\Domain\Entity;
 
 class WorkSpace extends Entity implements WorkSpaceInterface
 {

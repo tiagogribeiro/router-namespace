@@ -1,8 +1,8 @@
 <?php
-namespace Router\Model\WorkSpace;
+namespace Router\Domain\WorkSpace;
 
 use \Interop\Container\ContainerInterface;
-use Router\Model\Repository;
+use Router\Domain\Repository;
 
 class WorkSpaceRepository extends Repository implements WorkSpaceRepositoryInterface
 {
