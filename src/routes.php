@@ -1,7 +1,4 @@
 <?php
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
 use Router\FinderController;
 use Router\WorkSpaceController;
 use Router\TokenController;
