@@ -14,7 +14,7 @@ class WorkSpaceController extends ControllerAbstract implements WorkSpaceControl
         $repository = WorkSpaceRepository::createFrom( $workspace, $this->container );
         $results = $repository->listAll();
         if (!$results){
-            throw new \Exception("Não existem registros.");
+            $response->withStatus(204);
         }
         return $response->withJson( $results );
     }
@@ -30,7 +30,8 @@ class WorkSpaceController extends ControllerAbstract implements WorkSpaceControl
             throw new \Exception($message);
         } else {
             $this->container->logger->info('Novo workspace adicionado.', $data);
-            return $response->withJson( $data );
+            return $response->withJson( $data , 201 )
+                ->withHeader('Content-Location','/finder/'.$data["name"]);
         }
     }
 
