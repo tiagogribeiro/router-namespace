@@ -15,6 +15,7 @@ class TokenGenerator
          iss - Domínio utilizado para validar a procedência do token
          iat - Timestamp de criação do token.
          exp - Timestamp de expiração do token.
+         sub - ID de identificação de quem o token pertence.
          */
         $payload = [
             'iss'  => '',

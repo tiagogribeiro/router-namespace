@@ -1,7 +1,8 @@
 <?php
-namespace Router;
+namespace Router\Model\WorkSpace;
 
 use \Interop\Container\ContainerInterface;
+use Router\Model\RepositoryInterface;
 
 class WorkSpaceRepository implements RepositoryInterface
 {
@@ -23,7 +24,7 @@ class WorkSpaceRepository implements RepositoryInterface
 
     public function save()
     {
-        $sql = 'INSERT INTO workspace (name,server_name) VALUES (:name,:server_name)';
+        $sql = 'INSERT INTO workspace (name,server_name) VALUES (:name,:server)';
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':name', $this->workspace->getName() );
         $statement->bindParam(':server', $this->workspace->getServer() );
@@ -32,9 +33,9 @@ class WorkSpaceRepository implements RepositoryInterface
 
     public function delete()
     {
-        $sql = 'DELETE workspace WHERE name = :name';
+        $sql = 'DELETE FROM workspace WHERE name =:name';
         $statement = $this->db->prepare($sql);
-        $statement->bindParam(':name', $this->workspace->getName() );
+        $statement->bindParam(':name', $this->workspace->getName() , \PDO::PARAM_STR );
         return $statement->execute();
     }
 
@@ -43,7 +44,7 @@ class WorkSpaceRepository implements RepositoryInterface
         $sql = 'SELECT name,server_name FROM workspace';
         $statement = $this->db->prepare( $sql );
         $statement->execute();
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function findForName()

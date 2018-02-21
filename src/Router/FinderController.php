@@ -2,11 +2,13 @@
 namespace Router;
 
 use \Interop\Container\ContainerInterface;
+use Router\Model\WorkSpace\WorkSpace;
+use Router\Model\WorkSpace\WorkSpaceRepository;
 
 class FinderController implements FinderControllerInterface
 {
 
-    protected $container;
+    private $container;
 
     public function __construct(ContainerInterface $container)
     {

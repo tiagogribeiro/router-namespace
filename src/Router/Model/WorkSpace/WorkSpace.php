@@ -1,7 +1,9 @@
 <?php
-namespace Router;
+namespace Router\Model\WorkSpace;
 
-class WorkSpace implements WorkSpaceInterface
+use Router\Model\Entity;
+
+class WorkSpace extends Entity implements WorkSpaceInterface
 {
     private $name;
     private $server;
@@ -35,5 +37,10 @@ class WorkSpace implements WorkSpaceInterface
     public function getServer()
     {
         return $this->server;
+    }
+
+    public function __toString()
+    {
+        return "DiscussionDescriptor [id=".$this->id."]";
     }
 }
