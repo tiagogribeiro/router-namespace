@@ -1,5 +1,5 @@
 from php:5-apache
-MAINTAINER Tiago G. Ribeiro <tiago.ribeiro@webmaissistemas.com.brc>
+MAINTAINER Tiago G. Ribeiro <tiago.sistema@yahoo.com>
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
