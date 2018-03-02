@@ -9,9 +9,9 @@ class WorkSpaceRepository extends Repository implements WorkSpaceRepositoryInter
     private $workspace;
     private $db;
 
-    public static function createFrom( WorkSpaceInterface $workspace, ContainerInterface $container )
+    public static function createFrom( WorkSpaceInterface $workspace, \PDO $db )
     {
-        return new WorkSpaceRepository( $workspace, $container->db );
+        return new WorkSpaceRepository( $workspace, $db );
     }
 
     private function __construct( WorkSpaceInterface $workspace, \PDO $db )

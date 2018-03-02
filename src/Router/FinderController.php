@@ -10,10 +10,10 @@ class FinderController extends ControllerAbstract implements FinderControllerInt
     public function find( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $workSpace = WorkSpace::createFromName( $args["name"] );
-        $result = WorkSpaceRepository::createFrom( $workSpace, $this->container )->findForName();
+        $name = WorkSpaceRepository::createFrom( $workSpace, $this->container )->findForName();
 
-        if ($result){
-            $response = $response->withJson( $result );
+        if ($name){
+            $response = $response->withJson( $name );
         } else {
             $response = $response->withJson(["message"=>"Servidor não encontrado."])->withStatus(503);
         }

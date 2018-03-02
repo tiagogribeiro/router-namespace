@@ -11,7 +11,7 @@ class WorkSpaceController extends ControllerAbstract implements WorkSpaceControl
     public function listAll( \Slim\Http\Request $request, \Slim\Http\Response $response, $args)
     {
         $workspace = WorkSpace::createFromEmpty();
-        $repository = WorkSpaceRepository::createFrom( $workspace, $this->container );
+        $repository = WorkSpaceRepository::createFrom( $workspace, $this->container->db );
         $results = $repository->listAll();
         if (!$results){
             $response->withStatus(204);

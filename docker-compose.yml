@@ -1,0 +1,13 @@
+version: '2'
+services:
+    app:
+      container_name: 'wm-namespace'
+      build:
+        context: .
+      image: wm-namespace:latest
+      volumes:
+        - .:/var/www/html      
+      mem_limit: 512mb
+      memswap_limit: 512mb
+      environment:
+        JWT_SECRET: '1C793BFC1CD8492332368CDD1988B'
